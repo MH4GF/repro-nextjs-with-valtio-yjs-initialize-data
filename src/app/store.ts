@@ -1,6 +1,6 @@
 "use client";
 
-import { proxy, useSnapshot } from "valtio";
+import { proxy, subscribe, useSnapshot } from "valtio";
 
 type Page = {
   title: string;
@@ -12,6 +12,12 @@ type Store = {
 
 export const store = proxy<Store>({
   pages: {},
+});
+
+console.log("init store", JSON.stringify(store));
+
+subscribe(store, () => {
+  console.warn("store changed", JSON.stringify(store));
 });
 
 export const addPage = () => {

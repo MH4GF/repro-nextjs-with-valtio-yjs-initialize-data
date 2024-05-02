@@ -1,9 +1,22 @@
 "use client";
 
-import { addPage, useStore } from "./store";
+import { useEffect } from "react";
+import { addPage, store, useStore } from "./store";
+import { useWebsocket } from "./yjs";
+import { bind } from "valtio-yjs";
 
 export default function Home() {
+  const { doc } = useWebsocket();
   const snap = useStore();
+
+  useEffect(() => {
+    const ymap = doc.getMap("store");
+    const unbind = bind(store, ymap);
+
+    return () => {
+      unbind();
+    }
+  }, [doc])
 
   return (
     <div>

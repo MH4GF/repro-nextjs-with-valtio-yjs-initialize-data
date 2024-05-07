@@ -20,9 +20,9 @@ subscribe(store, () => {
   console.warn("store changed", JSON.stringify(store));
 });
 
-export const addPage = () => {
+export const addPage = (room: string) => {
   const id = Date.now().toString();
-  store.pages[id] = { title: `Page ${id}` };
+  store.pages[id] = { title: `/${room} Page ${id}` };
 };
 
 export const useStore = () => useSnapshot(store);
